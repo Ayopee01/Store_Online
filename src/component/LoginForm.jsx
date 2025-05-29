@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // Import axios for API requests
 import axios from "axios";
-//import loginVaildation
-import validateLogin from "./loginVaildation";
+//import LoginValidation
+import validateLogin from "./LoginValidation";
 
 function LoginForm() {
   const [form, setForm] = useState({ email: "", password: "" });
