@@ -3,7 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 // Import axios for API requests
 import axios from "axios";
 //import LoginValidation
+<<<<<<< HEAD
 import validateLogin from "./LoginValidation";
+=======
+import validateLogin from "./LoginValidation"; // ✅ ถูกต้อง
+>>>>>>> b6122ba (Fix: Correct LoginValidation import path)
 
 function LoginForm() {
   const [form, setForm] = useState({ email: "", password: "" });
