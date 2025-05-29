@@ -2,6 +2,9 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+// ✅ ใช้ API_URL ให้ตรงกับ .env
+const API_URL = import.meta.env.VITE_API_URL;
+
 let debounceTimer;
 
 function RegisterForm() {
@@ -10,16 +13,14 @@ function RegisterForm() {
   const [touched, setTouched] = useState({});
   const navigate = useNavigate();
 
-  // Validation patterns
   const username_pattern = /^[a-zA-Z0-9_]{3,20}$/;
   const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const password_pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
-  // Realtime duplicate check
   const checkDuplicate = async (field, value) => {
     if (!value) return "";
     try {
-      const res = await axios.post("http://localhost:5000/check-duplicate", {
+      const res = await axios.post(`${API_URL}/check-duplicate`, {
         [field]: value,
       });
       return res.data.exists ? `${field} already exists.` : "";
@@ -29,7 +30,6 @@ function RegisterForm() {
     }
   };
 
-  // Handle input change with validation
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -66,22 +66,21 @@ function RegisterForm() {
     }, 500);
   };
 
-  // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const finalErrors = {
-      username:
-        !form.username.trim()
-          ? "Username is required"
-          : errors.username || "",
-      email:
-        !form.email.trim() ? "Email is required" : errors.email || "",
+      username: !form.username.trim()
+        ? "Username is required"
+        : errors.username || "",
+      email: !form.email.trim()
+        ? "Email is required"
+        : errors.email || "",
       password: !form.password.trim()
         ? "Password is required"
         : password_pattern.test(form.password)
-        ? ""
-        : "Password must contain at least one letter, one number, and be at least 6 characters long.",
+          ? ""
+          : "Password must contain at least one letter, one number, and be at least 6 characters long.",
     };
 
     if (Object.values(finalErrors).some((err) => err)) {
@@ -90,7 +89,8 @@ function RegisterForm() {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/register", form);
+      console.log("API_URL =>", API_URL);
+      const res = await axios.post(`${API_URL}/register`, form);
       alert(res.data.message);
       navigate("/login");
     } catch (err) {
@@ -114,9 +114,8 @@ function RegisterForm() {
               value={form.username}
               onChange={handleChange}
               placeholder="Username"
-              className={`w-full px-4 py-2 border ${
-                errors.username ? "border-red-500" : "border-gray-300"
-              } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition`}
+              className={`w-full px-4 py-2 border ${errors.username ? "border-red-500" : "border-gray-300"
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition`}
             />
             {errors.username && (
               <p className="text-sm text-red-500 mt-1">{errors.username}</p>
@@ -130,9 +129,8 @@ function RegisterForm() {
               value={form.email}
               onChange={handleChange}
               placeholder="Email"
-              className={`w-full px-4 py-2 border ${
-                errors.email ? "border-red-500" : "border-gray-300"
-              } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition`}
+              className={`w-full px-4 py-2 border ${errors.email ? "border-red-500" : "border-gray-300"
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition`}
             />
             {errors.email && (
               <p className="text-sm text-red-500 mt-1">{errors.email}</p>
@@ -146,9 +144,8 @@ function RegisterForm() {
               value={form.password}
               onChange={handleChange}
               placeholder="Password"
-              className={`w-full px-4 py-2 border ${
-                errors.password ? "border-red-500" : "border-gray-300"
-              } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition`}
+              className={`w-full px-4 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition`}
             />
             {errors.password && (
               <p className="text-sm text-red-500 mt-1">{errors.password}</p>
