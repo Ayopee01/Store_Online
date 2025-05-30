@@ -251,7 +251,7 @@ function Home() {
                               item.quantity >= variant.stock
                           ) || variant.stock <= 0
                         }
-                        className={`cursor-pointer absolute top-4 right-4 z-20 bg-black/50 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 hover:bg-black/70 hover:scale-110 group-hover:opacity-100 opacity-0
+                        className={`cursor-pointer absolute top-4 right-4 z-20 bg-black/50 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 hover:bg-black/70 hover:scale-110 group-hover:opacity-100 lg:opacity-0
                           ${(cart.find(
                           (item) =>
                             item.id === variant.id &&

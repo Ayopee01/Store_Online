@@ -19,7 +19,7 @@ function Cart({
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      <div className="relative bg-white/95 backdrop-blur-lg shadow-2xl rounded-3xl w-96 max-h-[80vh] border border-gray-100 overflow-hidden">
+      <div className="relative bg-white/95 backdrop-blur-lg shadow-2xl rounded-3xl w-73 max-h-[80vh] border border-gray-100 overflow-hidden sm:w-96 max-h-[80vh]">
         {/* Header*/}
         <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-6 text-white relative overflow-hidden">
           {/* Background */}
