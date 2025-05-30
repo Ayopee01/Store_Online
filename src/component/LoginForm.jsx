@@ -28,7 +28,7 @@ function LoginForm() {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, form);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, form); // ✅ แก้ตรงนี้
 
       if (res.data.success) {
         localStorage.setItem("user", JSON.stringify(res.data.user));
