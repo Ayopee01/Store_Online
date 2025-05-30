@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// Import axios for API requests
 import axios from "axios";
-//import LoginValidation
-<<<<<<< HEAD
 import validateLogin from "./LoginValidation";
-=======
-import validateLogin from "./LoginValidation"; // ✅ ถูกต้อง
->>>>>>> b6122ba (Fix: Correct LoginValidation import path)
 
 function LoginForm() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -19,8 +13,6 @@ function LoginForm() {
     const { name, value } = e.target;
     const updatedForm = { ...form, [name]: value };
     setForm(updatedForm);
-
-    // Validation ทันที
     setErrors(validateLogin(updatedForm));
   };
 
@@ -36,14 +28,13 @@ function LoginForm() {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:5000/login", form);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, form);
 
       if (res.data.success) {
-        // เก็บ user ลง localStorage
         localStorage.setItem("user", JSON.stringify(res.data.user));
         setErrors({});
         alert("Login successful");
-        navigate("/home"); // ไปหน้า Home
+        navigate("/home");
       } else {
         alert(res.data.message || "Login failed");
       }
@@ -77,6 +68,7 @@ function LoginForm() {
             autoComplete="email"
           />
           {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+
           <input
             name="password"
             value={form.password}
@@ -101,8 +93,7 @@ function LoginForm() {
 
         <p className="text-sm text-center text-gray-600 mt-4">
           Don't have an account?{" "}
-          <Link to="/register"
-            className="text-blue-500 hover:underline font-medium">
+          <Link to="/register" className="text-blue-500 hover:underline font-medium">
             Sign up
           </Link>
         </p>
