@@ -20,7 +20,7 @@ function RegisterForm() {
   const checkDuplicate = async (field, value) => {
     if (!value) return "";
     try {
-      const res = await axios.post(`${API_URL}/check-duplicate`, {
+      const res = await axios.post(`${API_URL}/auth/check-duplicate`, {
         [field]: value,
       });
       return res.data.exists ? `${field} already exists.` : "";
@@ -90,7 +90,7 @@ function RegisterForm() {
 
     try {
       console.log("API_URL =>", API_URL);
-      const res = await axios.post(`${API_URL}/register`, form);
+      const res = await axios.post(`${API_URL}/auth/register`, form);
       alert(res.data.message);
       navigate("/login");
     } catch (err) {
